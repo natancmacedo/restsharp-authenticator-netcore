@@ -2,6 +2,15 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Natan Macedo</Authors>
+    <PackageId>restsharp.authencators</PackageId>
+    <Company />
+    <PackageReleaseNotes>Sensedia authenticator:
+OAuth2
+ClientId 
+
+Internal cache using expires_in property of token access</PackageReleaseNotes>
+    <NeutralLanguage>en</NeutralLanguage>
   </PropertyGroup>
 
   <ItemGroup>
