@@ -18,7 +18,7 @@ jobs:
       with:
         dotnet-version: 3.1.301
     - name: Load Solution Folder
-      run: cd RestSharp.Authenticators
+      run: cd RestSharp.Authenticators/
     - name: List files
       run: ls -la
     - name: Install dependencies
