@@ -18,12 +18,12 @@ jobs:
       with:
         dotnet-version: 3.1.301
     - name: Load Solution Folder
-      run: cd RestSharp.Authenticators/
+      run: cd ./RestSharp.Authenticators/
     - name: List files
       run: ls -la
     - name: Install dependencies
-      run: dotnet restore
+      run: dotnet restore ./RestSharp.Authenticators/
     - name: Build
-      run: dotnet build --configuration Release --no-restore
+      run: dotnet build ./RestSharp.Authenticators/ --configuration Release --no-restore
     - name: Test
-      run: dotnet test --no-restore --verbosity normal
+      run: dotnet test ./RestSharp.Authenticators/ --no-restore --verbosity normal
