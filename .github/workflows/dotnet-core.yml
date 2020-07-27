@@ -17,10 +17,6 @@ jobs:
       uses: actions/setup-dotnet@v1
       with:
         dotnet-version: 3.1.301
-    - name: Load Solution Folder
-      run: cd ./RestSharp.Authenticators/
-    - name: List files
-      run: ls -la
     - name: Install dependencies
       run: dotnet restore ./RestSharp.Authenticators/
     - name: Build
