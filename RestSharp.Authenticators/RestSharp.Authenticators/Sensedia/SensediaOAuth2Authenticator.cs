@@ -33,10 +33,11 @@ namespace RestSharp.Authenticators.Sensedia
             if (token == null)
             {
                 token = await GetAcessTokenSensediaInternalAsync();
-                _tokenCache.Add(_sensediaKey, token, TimeSpan.FromSeconds(token.expires_in));
+                if(token != null)
+                    _tokenCache.Add(_sensediaKey, token, TimeSpan.FromSeconds(token.expires_in));
             }
 
-            return token.access_token;
+            return token?.access_token;
         }
 
         public string GetTokenSensedia()
@@ -49,12 +50,12 @@ namespace RestSharp.Authenticators.Sensedia
             var client = new RestClient(EndPoint);
             var request = new RestRequest(AuthResource, Method.POST);
             request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
-            request.AddParameter("Authorization", $"Basic {_tokenCache}", ParameterType.HttpHeader);
+            request.AddParameter("Authorization", $"Basic {_sensediaKey}", ParameterType.HttpHeader);
             request.AddParameter("application/x-www-form-urlencoded", $"grant_type=client_credentials", ParameterType.RequestBody);
 
             var response = await client.ExecuteAsync<TokenAccess>(request);
 
-            return response.Data;
+            return response.IsSuccessful ? response.Data : null;
         }
     }
 }

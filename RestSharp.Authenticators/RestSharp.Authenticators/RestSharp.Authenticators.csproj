@@ -9,7 +9,8 @@
 OAuth2
 ClientId 
 
-Internal cache using expires_in property of token access</PackageReleaseNotes>
+Internal cache using expires_in property of token access
+Bug fixing</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <Description>Dotnet Library for facilitated authentication in REST APIs with RestSharp</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -17,6 +18,7 @@ Internal cache using expires_in property of token access</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/natancmacedo/restsharp-authenticator-netcore/</RepositoryUrl>
     <PackageTags>sensedia, authenticate, authentication, authenticator, restsharp</PackageTags>
     <PackageIcon>authentication.png</PackageIcon>
+    <Version>1.0.2</Version>
   </PropertyGroup>
 
   <ItemGroup>

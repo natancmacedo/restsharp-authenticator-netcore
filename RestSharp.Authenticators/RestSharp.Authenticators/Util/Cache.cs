@@ -12,10 +12,7 @@ namespace RestSharp.Authenticators.Util
 
         public Cache(TimeSpan? expirationTime = null)
         {
-            _cache = new MemoryCache(new MemoryCacheOptions
-            {
-                SizeLimit = 1024
-            });
+            _cache = new MemoryCache(new MemoryCacheOptions());
 
             ExpirationTime = expirationTime;
         }
