@@ -9,17 +9,17 @@ namespace RestSharp.Authenticators.Sensedia
     {
         public string EndPoint { get; }
         public string AuthResource { get; }
-        public string SecretId { get; }
+        public string ClientSecret { get; }
         private Cache<TokenAccess> _tokenCache { get; set; }
-        private string _sensediaKey => Convert.ToBase64String(Encoding.UTF8.GetBytes($"{ClientId}:{SecretId}"));
+        private string _sensediaKey => Convert.ToBase64String(Encoding.UTF8.GetBytes($"{ClientId}:{ClientSecret}"));
 
 
-        public SensediaOAuth2Authenticator(string endpoint, string authResource, string clientId, string secredId)
+        public SensediaOAuth2Authenticator(string endpoint, string authResource, string clientId, string clientSecret)
             : base(clientId)
         {
             EndPoint = endpoint;
             AuthResource = authResource;
-            SecretId = secredId;
+            ClientSecret = clientSecret;
             _tokenCache = new Cache<TokenAccess>();
         }
 
