@@ -5,12 +5,10 @@
     <Authors>Natan Macedo</Authors>
     <PackageId>RestSharp.Authenticators</PackageId>
     <Company>Natan Macedo</Company>
-    <PackageReleaseNotes>Sensedia authenticator:
-OAuth2
-ClientId 
+    <PackageReleaseNotes>Moving authenticators to:
+RestSharp.Authenticators namespace
 
-Internal cache using expires_in property of token access
-Bug fixing</PackageReleaseNotes>
+Modifying cache to be static variable</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <Description>Dotnet Library for facilitated authentication in REST APIs with RestSharp</Description>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
@@ -18,7 +16,7 @@ Bug fixing</PackageReleaseNotes>
     <RepositoryUrl>https://github.com/natancmacedo/restsharp-authenticator-netcore/</RepositoryUrl>
     <PackageTags>sensedia, authenticate, authentication, authenticator, restsharp</PackageTags>
     <PackageIcon>authentication.png</PackageIcon>
-    <Version>1.0.2</Version>
+    <Version>1.1.0</Version>
   </PropertyGroup>
 
   <ItemGroup>

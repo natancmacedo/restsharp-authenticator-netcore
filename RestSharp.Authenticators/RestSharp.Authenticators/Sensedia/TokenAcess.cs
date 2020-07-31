@@ -1,4 +1,4 @@
-﻿namespace RestSharp.Authenticators.Sensedia
+﻿namespace RestSharp.Authenticators.Token
 {
     internal class TokenAccess
     {
