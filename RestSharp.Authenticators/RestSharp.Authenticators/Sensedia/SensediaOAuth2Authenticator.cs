@@ -1,18 +1,19 @@
-﻿using RestSharp.Authenticators.Util;
+﻿using RestSharp.Authenticators.Token;
+using RestSharp.Authenticators.Util;
 using System;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace RestSharp.Authenticators.Sensedia
+namespace RestSharp.Authenticators
 {
     public class SensediaOAuth2Authenticator : SensediaClientAuthenticator
     {
-        public string EndPoint { get; }
-        public string AuthResource { get; }
-        public string ClientSecret { get; }
-        private Cache<TokenAccess> _tokenCache { get; set; }
+        public string EndPoint { get; set; }
+        public string AuthResource { get; set; }
+        public string ClientSecret { get; set; }
+        private static ICache<TokenAccess> _tokenCache = new Cache<TokenAccess>();
         private string _sensediaKey => Convert.ToBase64String(Encoding.UTF8.GetBytes($"{ClientId}:{ClientSecret}"));
 
+        public SensediaOAuth2Authenticator() { }
 
         public SensediaOAuth2Authenticator(string endpoint, string authResource, string clientId, string clientSecret)
             : base(clientId)
@@ -20,32 +21,29 @@ namespace RestSharp.Authenticators.Sensedia
             EndPoint = endpoint;
             AuthResource = authResource;
             ClientSecret = clientSecret;
-            _tokenCache = new Cache<TokenAccess>();
         }
 
-        public SensediaOAuth2Authenticator(string endpoint, string authResource, Guid clientId, Guid secredId)
-            : this(endpoint, authResource, clientId.ToString(), secredId.ToString()) { }
+        public override void Authenticate(IRestClient client, IRestRequest request)
+        {
+            base.Authenticate(client, request);
+            request.AddHeader("access_token", GetTokenSensedia());
+        }
 
-        public async Task<string> GetTokenSensediaAsync()
+        private string GetTokenSensedia()
         {
             TokenAccess token = _tokenCache.Get(_sensediaKey);
 
             if (token == null)
             {
-                token = await GetAcessTokenSensediaInternalAsync();
-                if(token != null)
+                token = GetAcessTokenSensediaInternal();
+                if (token != null)
                     _tokenCache.Add(_sensediaKey, token, TimeSpan.FromSeconds(token.expires_in));
             }
 
             return token?.access_token;
         }
 
-        public string GetTokenSensedia()
-        {
-            return GetTokenSensediaAsync().GetAwaiter().GetResult();
-        }
-
-        private async Task<TokenAccess> GetAcessTokenSensediaInternalAsync()
+        private TokenAccess GetAcessTokenSensediaInternal()
         {
             var client = new RestClient(EndPoint);
             var request = new RestRequest(AuthResource, Method.POST);
@@ -53,7 +51,7 @@ namespace RestSharp.Authenticators.Sensedia
             request.AddParameter("Authorization", $"Basic {_sensediaKey}", ParameterType.HttpHeader);
             request.AddParameter("application/x-www-form-urlencoded", $"grant_type=client_credentials", ParameterType.RequestBody);
 
-            var response = await client.ExecuteAsync<TokenAccess>(request);
+            var response = client.Execute<TokenAccess>(request);
 
             return response.IsSuccessful ? response.Data : null;
         }
