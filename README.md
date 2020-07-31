@@ -33,7 +33,7 @@ Please make sure to update tests as appropriate.
 ## Thanks
 
 Thank you guys for your contribution:
-- @github/marcotalles 
+@marcotalles 
 
 ## Credits
 
